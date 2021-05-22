@@ -1,4 +1,5 @@
 ﻿  Assembling ..\..\..\src\main.asm...
+..\..\..\src\main.asm(32): warning A6004: procedure argument or local not referenced : button
 main.obj : warning LNK4258: 指令“/ENTRY:main@0”与开关“/ENTRY:main”不兼容；已忽略
   acllib.lib(acllib.obj) : 找到 MSIL .netmodule 或使用 /GL 编译的模块；正在使用 /LTCG 重新启动链接；将 /LTCG 添加到链接命令行以改进链接器性能
 LINK : warning LNK4075: 忽略“/INCREMENTAL”(由于“/LTCG”规范)
