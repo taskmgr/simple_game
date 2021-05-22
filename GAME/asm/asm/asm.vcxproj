@@ -107,12 +107,13 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>D:\masm32\lib;D:\User\Documents\Code\simple_game\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>EasyXa.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>/entry:main %(AdditionalOptions)</AdditionalOptions>
-      <EntryPointSymbol>main</EntryPointSymbol>
+      <EntryPointSymbol>
+      </EntryPointSymbol>
     </Link>
     <MASM>
       <IncludePaths>D:\masm32\include;D:\User\Documents\Code\simple_game\src\inc;%(IncludePaths)</IncludePaths>
