@@ -30,6 +30,7 @@
   <ItemGroup>
     <None Include="..\..\..\src\inc\acllib.inc" />
     <None Include="..\..\..\src\inc\controller.inc" />
+    <None Include="..\..\..\src\inc\iconPosition.inc" />
     <None Include="..\..\..\src\inc\model.inc" />
     <None Include="..\..\..\src\inc\sharedVar.inc" />
     <None Include="..\..\..\src\inc\view.inc" />

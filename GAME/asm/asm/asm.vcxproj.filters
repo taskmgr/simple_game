@@ -47,5 +47,8 @@
     <None Include="..\..\..\src\inc\view.inc">
       <Filter>头文件</Filter>
     </None>
+    <None Include="..\..\..\src\inc\iconPosition.inc">
+      <Filter>头文件</Filter>
+    </None>
   </ItemGroup>
 </Project>
