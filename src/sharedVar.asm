@@ -23,4 +23,7 @@ public psin
 pcos dd 360 DUP(0)
 public pcos
 
+ginterval dd 0
+public ginterval
+
 end

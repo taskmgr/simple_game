@@ -3,3 +3,5 @@
 *.tlog
 *.log
 Browse.VC*
+.vs
+GAME/asm/Debug/*
