@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>D:\User\Documents\Code\simple_game\GAME\asm\Debug\asm.exe</FullPath>
+      <FullPath>D:\User\Documents\Code\simple_game\GAME\asm\Release\asm.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

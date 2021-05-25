@@ -108,16 +108,16 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\masm32\lib;C:\Users\81532\Documents\GitHub\simple_game\lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\masm32\lib;D:\User\Documents\Code\simple_game\lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>/entry:main %(AdditionalOptions)</AdditionalOptions>
       <EntryPointSymbol>
       </EntryPointSymbol>
     </Link>
     <MASM>
-      <IncludePaths>C:\masm32\include;C:\Users\81532\Documents\GitHub\simple_game\src\inc;%(IncludePaths)</IncludePaths>
+      <IncludePaths>D:\masm32\include;D:\User\Documents\Code\simple_game\src\inc;%(IncludePaths)</IncludePaths>
     </MASM>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -130,12 +130,16 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalOptions>/SAFESEH:NO %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalLibraryDirectories>D:\masm32\lib;D:\User\Documents\Code\simple_game\lib</AdditionalLibraryDirectories>
     </Link>
+    <MASM>
+      <IncludePaths>D:\masm32\include;D:\User\Documents\Code\simple_game\src\inc;%(IncludePaths)</IncludePaths>
+    </MASM>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
