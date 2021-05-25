@@ -1,6 +1,6 @@
-﻿  Assembling ..\..\..\src\model.asm...
+﻿  Assembling ..\..\..\src\controller.asm...
 C:\masm32\include\winextra.inc(11052): warning A6006: structure contains no members
-..\..\..\src\model.asm(292): warning A6004: procedure argument or local not referenced : middle2
+..\..\..\src\controller.asm(131): warning A6004: procedure argument or local not referenced : button
 main.obj : warning LNK4258: 指令“/ENTRY:main@0”与开关“/ENTRY:main”不兼容；已忽略
   acllib.lib(acllib.obj) : 找到 MSIL .netmodule 或使用 /GL 编译的模块；正在使用 /LTCG 重新启动链接；将 /LTCG 添加到链接命令行以改进链接器性能
 LINK : warning LNK4075: 忽略“/INCREMENTAL”(由于“/LTCG”规范)

@@ -12,6 +12,7 @@ include inc/msvcrt.inc
 calPsin PROTO C :dword, :dword
 calPcos PROTO C :dword, :dword
 myitoa PROTO C :dword, :ptr sbyte
+printf proto C :dword,:vararg
 
 colorBLACK EQU 00000000h
 colorWHITE EQU 00ffffffh
@@ -148,6 +149,7 @@ winner:
 	jmp finish
 
 finish:	
+	invoke printf, offset titleScore
 	ret 
 loadMenu endp
 
@@ -375,6 +377,10 @@ cal:
 
 	;刷新初始分数
 	;invoke FlushScore, 0
+
+	;初始化ginterval
+	mov eax, interval
+	mov ginterval, eax
 
 	invoke loadImage, offset srcBg, offset imgBg
 	invoke loadImage, offset srcHome, offset imgHome

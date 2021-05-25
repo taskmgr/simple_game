@@ -17,6 +17,12 @@ coord sbyte "%d,%d",10,0
 now_window sbyte "current Window: %d",10,0
 
 .code
+	;@brief:计时器回调函数
+	;timer proc C id:dword
+		;invoke flushGameWindow
+		;ret	
+	;timer endp
+
 	;判断点击的坐标是否在矩形框内，是返回1，不是则返回0,注意，bottom一般比up大，因为这个是人眼看到的底部，而windows坐标系是左上角为0
 	is_inside_the_rect proc C x:dword,y:dword,left:dword,right:dword,up:dword,bottom:dword
 		mov eax,x
@@ -47,7 +53,9 @@ now_window sbyte "current Window: %d",10,0
 				;开始菜单的开始键
 				invoke is_inside_the_rect,x,y,menu_start_game_left,menu_start_game_right,menu_start_game_up,menu_start_game_bottom
 					.if eax == 1
-						
+						;初始化计时器
+						;invoke registerTimerEvent, offset timer
+						;invoke startTimer, 0, ginterval
 						invoke printf,offset coord,x,y ;点击了开始键后的事件
 						invoke KeyboardEvent,0
 					.endif
@@ -56,9 +64,10 @@ now_window sbyte "current Window: %d",10,0
 				;开始菜单的退出键
 				invoke is_inside_the_rect,x,y,menu_exit_game_left,menu_exit_game_right,menu_exit_game_up,menu_exit_game_bottom
 					.if eax == 1
-
+						
 						invoke printf,offset coord,x,y ;点击了后的事件
 						invoke KeyboardEvent,1
+						
 					.endif
 
 			.elseif currWindow == 1 ;游戏主界面
@@ -66,13 +75,17 @@ now_window sbyte "current Window: %d",10,0
 					.if eax == 1
 						
 						invoke printf,offset coord,x,y ;点击了房子
+						;invoke cancelTimer, 0
 						invoke KeyboardEvent,1
+						invoke	printf,offset now_window,currWindow ;现在所处的界面
+					.else	
+						invoke KeyboardEvent,0
 					.endif
 					;action
 					;	其他情况都发射针
-						invoke KeyboardEvent,0
 
 			.elseif currWindow == 2 ;最终得分
+				;invoke cancelTimer, 0
 				invoke is_inside_the_rect,x,y,final_score_house_left,final_score_house_right,final_score_house_up,final_score_house_bottom
 					.if eax == 1
 						
@@ -82,13 +95,15 @@ now_window sbyte "current Window: %d",10,0
 
 				invoke is_inside_the_rect,x,y,final_score_restart_left,final_score_restart_right,final_score_restart_up,final_score_restart_bottom
 					.if eax == 1
-
+						;初始化计时器
+						;invoke registerTimerEvent, offset timer
+						;invoke startTimer, 0, ginterval
 						invoke printf,offset coord,x,y ;点击了重新开始
 						invoke KeyboardEvent,0
 					.endif
 
 			.elseif	currWindow == 3 ;好耶，你通关了！
-				
+				;invoke cancelTimer, 0
 				;房子，返回主菜单
 				invoke is_inside_the_rect,x,y,pass_game_house_left,pass_game_house_right,pass_game_house_up,pass_game_house_bottom
 					.if eax == 1
@@ -100,7 +115,9 @@ now_window sbyte "current Window: %d",10,0
 				;重新开始游戏
 				invoke is_inside_the_rect,x,y,pass_game_continue_left,pass_game_continue_right,pass_game_continue_up,pass_game_continue_bottom
 					.if eax == 1
-						
+						;初始化计时器
+						;invoke registerTimerEvent, offset timer
+						;invoke startTimer, 0, ginterval
 						invoke printf,offset coord,x,y ;点击了后的事件
 						invoke KeyboardEvent,0
 					.endif
