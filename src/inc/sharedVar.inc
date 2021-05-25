@@ -4,3 +4,4 @@ extern pindeg:dword
 extern pinnum:dword
 extern psin :dword
 extern pcos :dword
+extern ginterval :dword
