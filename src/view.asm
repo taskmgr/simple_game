@@ -62,6 +62,7 @@ strScore byte 10 DUP(0)
 strPinNum byte 10 DUP(0)
 strCurNum byte 10 DUP(0)
 
+curScore dword ?
 lowy dword 545  ;底部针头最上端纵坐标 
 lowyText dword 534  ;底部针头数字最上端纵坐标
 initPinNum dword ?  ;预置针数量
@@ -77,6 +78,7 @@ pinY dword ?
 ;@param num:当前分数
 FlushScore proc C num: dword
 	mov ebx, num
+	mov curScore, ebx
 	invoke myitoa, ebx, offset strScore
 	ret
 FlushScore endp
@@ -129,7 +131,15 @@ loser:
 	invoke setTextSize, 80
 	invoke setTextColor, 00cc9900h
 	invoke setTextBkColor, colorEMPTY
+	cmp curScore, 10
+	jb l0
 	invoke paintText, 235, 295, offset strScore
+	jmp l1
+l0:
+	invoke paintText, 250, 295, offset strScore
+l1:
+	;绘制魔法方块
+	invoke putImageScale, offset imgBg, 260, 530, 30, 30
 	invoke endPaint
 	jmp finish
 
@@ -145,6 +155,26 @@ winner:
 	invoke putImageScale, offset imgWin, 25, 215, 500, 100
 	invoke putImageScale, offset imgHome2, 155, 365, 70, 70
 	invoke putImageScale, offset imgContinue, 325, 365, 70, 70
+	;修改记分牌
+	invoke setPenWidth, 1
+	invoke setPenColor, colorScore
+	invoke setBrushColor, colorScore
+	invoke roundrect, 215, 35, 335, 100, 10, 10
+	;绘制记分牌分数
+	invoke setTextColor, colorWHITE
+	invoke setTextFont, offset fontName
+	invoke setTextBkColor, colorEMPTY
+	invoke setTextSize, 28
+	invoke paintText, 245, 40, offset titleScore
+	cmp curScore, 10
+	jb t2
+	invoke paintText, 260, 70, offset strScore
+	jmp t3
+t2:
+	invoke paintText, 267, 70, offset strScore
+t3:
+	;绘制魔法方块
+	invoke putImageScale, offset imgBg, 260, 530, 30, 30
 	invoke endPaint
 	jmp finish
 
@@ -179,8 +209,13 @@ ta:
 	invoke setTextBkColor, colorEMPTY
 	invoke setTextSize, 28
 	invoke paintText, 245, 40, offset titleScore
+	cmp curScore, 10
+	jb tz
 	invoke paintText, 260, 70, offset strScore
-
+	jmp ty
+tz:
+	invoke paintText, 267, 70, offset strScore
+ty:
 	mov ecx, 0  ;循环次数=预置针数量
 t0:	
 	;计算针终点
@@ -347,7 +382,7 @@ timer proc C id:dword
 timer endp
 
 
-;@brief:载入游戏界面
+;@brief:初始化游戏界面
 ;@param omega:角速度
 initGameWindow proc C num:dword, interval:dword
 	mov currWindow, 1  
@@ -382,128 +417,6 @@ cal:
 	mov eax, interval
 	mov ginterval, eax
 
-	invoke loadImage, offset srcBg, offset imgBg
-	invoke loadImage, offset srcHome, offset imgHome
-	
-	invoke beginPaint
-	invoke putImageScale, offset imgBg, 0, 0, 550, 700
-	invoke putImageScale, offset imgHome, 60, 35, 60, 60	
-	
-	;绘制记分牌
-	invoke setPenWidth, 1
-	invoke setPenColor, colorScore
-	invoke setBrushColor, colorScore
-	invoke roundrect, 215, 35, 335, 100, 10, 10
-	;绘制记分牌分数
-	invoke setTextColor, colorWHITE
-	invoke setTextFont, offset fontName
-	invoke setTextBkColor, colorEMPTY
-	invoke setTextSize, 28
-	invoke paintText, 245, 40, offset titleScore
-	invoke paintText, 260, 70, offset strScore
-
-	mov ecx, 0  ;循环次数=预置针数量
-l0:	
-	;计算针终点
-	mov edx, cdeg  
-	add edx, pindeg[ecx*4]  ;计算当前角度
-	cmp edx, 360
-	jb l2  ;小于360度直接计算
-	cmp edx, 720
-	jae l3  ;大于等于720度跳至l3
-	sub edx, 360  ;大于等于360，小于720
-	jmp l2
-l3:
-	sub edx, 720
-l2:
-	mov eax, 275
-	add eax, pcos[edx*4]
-	mov pinX, eax  ;计算横坐标
-	mov eax, 320
-	add eax, psin[edx*4]
-	mov pinY, eax  ;计算纵坐标
-	push ecx
-	;绘制预置针
-	invoke setPenColor, colorBLACK
-	invoke setPenWidth, 2
-	invoke line, 275, 320, pinX, pinY 
-	;绘制预置针头
-	invoke setPenWidth, 30
-	invoke line, pinX, pinY, pinX, pinY
-	pop ecx
-	inc ecx
-	cmp ecx, initPinNum
-	jb l0
-
-	;绘制中心圆
-	invoke setPenWidth, 1
-	invoke setPenColor, colorCCircle
-	invoke setBrushColor, colorCCircle
-	invoke pie, 235, 280, 315, 360, 235, 320, 235, 320
-	;绘制中心数字
-	invoke setTextSize, 35
-	invoke myitoa, pinnum, offset strPinNum
-	cmp pinnum, 10
-	jb l4
-	invoke paintText, 256, 303, offset strPinNum
-	jmp l5
-l4:
-	invoke paintText, 265, 303, offset strPinNum
-
-l5:
-	;绘制底部针头	
-	mov eax, pinnum  ;当前剩余针头数 
-	mov cx, 6  ;循环次数
-	mov ebx, 0
-
-l1:	
-	mov edx, 0  ;记录余数
-	push cx
-	push eax
-	mov bl, 6
-	div bl
-	mov dl, ah 
-	push edx
-	invoke setPenColor, colors[edx*4]  ;根据余数选择颜色
-	pop edx
-	invoke setBrushColor, colors[edx*4]
-	invoke setPenWidth, 30
-	invoke line, 275, lowy, 275, lowy  ;绘制针头	
-	
-	;绘制针头数字
-	invoke setTextColor, colorWHITE
-	invoke setTextSize, 20
-	pop eax
-	push eax
-	invoke myitoa, eax, offset strCurNum
-	pop eax
-	cmp eax, 10
-	push eax
-	jb l6
-	invoke paintText, 264, lowyText, offset strCurNum
-	jmp l7
-l6:
-	invoke paintText, 270, lowyText, offset strCurNum
-l7:
-	pop eax
-	dec eax
-	cmp eax, 0
-	jz finish
-
-	add lowy, 30
-	add lowyText, 30
-	
-	pop cx
-	dec cx
-	cmp cx, 0
-	jz finish
-	jmp l1
-
-finish:	
-	mov lowy, 545  ;恢复底部针头最上端纵坐标
-	mov lowyText, 534
-	invoke endPaint
-
 	;初始化计时器
 	invoke registerTimerEvent, offset timer
 	invoke startTimer, 0, interval
@@ -511,30 +424,4 @@ finish:
 initGameWindow endp	
 
 
-
-;main proc C
-	;invoke init_first  ;初始化绘图环境
-	;invoke initWindow, offset winTitle, 425, 50, 550, 700 
-	
-	;mov pindeg[0], 0
-	;mov pindeg[4], 180
-	;mov pindeg[8], 90
-	;mov pinnum, 12
-	;invoke FlushScore, 20
-	;invoke initGameWindow, 3, 10
-	;mov pindeg[12], 70	
-	;mov pindeg[16], 320
-	;mov pindeg[20], 200
-	;mov pindeg[24], 45
-	;mov pinnum, 10
-	;invoke FlushScore, 50
-
-	;invoke cancelTimer, 0
-	;mov pindeg[28], 33
-	;invoke loadMenu, 3
-	
-	;invoke init_second  ;启动事件循环
-	;ret
-;main endp
-;end main
 end
