@@ -2,6 +2,7 @@
 modelOmega dd ?
 modelInsertedPinNumber dd ?
 modelScore dd ?
+modelLastScore dd ?
 .data
 
 ;É¾µô£¡£¡£¡£¡£¡£¡£¡£¡£¡
@@ -10,7 +11,7 @@ modelScore dd ?
 ;szMiddle3Fmt byte "%d:Åö×²À²",0ah,0
 ;szMiddle4Fmt byte "cdeg:%d",0ah,0
 
-modelNowDifficulty dd 5
+modelNowDifficulty dd 3
 
 
 KeyboardEvent PROTO C:dword

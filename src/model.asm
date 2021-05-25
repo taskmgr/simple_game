@@ -60,6 +60,8 @@ KeyboardEvent proc C windowType:dword
 KeyboardEvent endp
 
 Window0Type0 proc C
+	mov modelLastScore,0
+	mov modelScore,0
 	invoke InitWindow
 	ret
 Window0Type0 endp
@@ -74,7 +76,7 @@ Window0Type2 proc C
 Window0Type2 endp
 
 Window1Type0 proc C
-	local middle1:DWORD
+	local middle1:DWORD,middle2:DWORD
 
 	;test
 	;invoke crt_printf,addr szMiddle4Fmt,cdeg
@@ -82,8 +84,14 @@ Window1Type0 proc C
 	mov esi,0
 	;循环
 	ACT1:
-	mov eax,pindeg[4*esi]
+	mov eax,450
+	mov edx,0
 	sub eax,cdeg
+	mov ebx,360
+	div ebx
+	MOV middle2,edx
+	mov eax,pindeg[4*esi]
+	sub eax,middle2
 	mov middle1,eax
 	push esi
 	invoke crt_abs,middle1
@@ -105,7 +113,7 @@ Window1Type0 proc C
 
 	;未发生碰撞
 	;进行变量的一些设置
-	mov eax,cdeg
+	mov eax,middle2
 	mov ebx,modelInsertedPinNumber
 	mov pindeg[ebx*4],eax
 
@@ -127,6 +135,7 @@ Window1Type0 proc C
 Window1Type0 endp
 
 Window1Type1 proc C
+	mov modelScore,0
 	invoke cancelTimer,0
 	invoke loadMenu,0
 	ret
@@ -137,29 +146,36 @@ Window1Type2 proc C
 Window1Type2 endp
 
 Window2Type0 proc C
-	invoke Window0Type0
+	mov eax,modelLastScore
+	mov modelScore,eax
+	invoke InitWindow
 	ret
 Window2Type0 endp
 
 Window2Type1 proc C
+	mov modelScore,0
 	invoke loadMenu,0
 	ret
 Window2Type1 endp
 
 Window3Type0 proc C
+	mov eax,modelScore
+	mov modelLastScore,eax
+	inc modelNowDifficulty
 	inc modelNowDifficulty
 	invoke InitWindow
 	ret
 Window3Type0 endp
 
 Window3Type1 proc C
+	mov modelScore,0
 	invoke loadMenu,0
 	ret
 Window3Type1 endp
 
 InitParam proc C
 	mov modelScore,0
-	mov modelNowDifficulty,5
+	mov modelNowDifficulty,3
 	ret
 InitParam endp
 
@@ -183,7 +199,7 @@ InitWindow proc C
 	;invoke crt_printf,addr szMiddle2Fmt,cdeg
 
 	;初始化modelInsertedPinNumber
-	mov eax,modelNowDifficulty
+	mov eax,4
 	mov modelInsertedPinNumber,eax 
 
 	;初始化pindeg
@@ -226,27 +242,39 @@ InitWindow proc C
 	
 	;外循环判断
 	inc esi
-	cmp esi,modelNowDifficulty
+	cmp esi,modelInsertedPinNumber
 	jl ACT1 ;<跳转
 
 	;初始化pinnum
 	mov eax,modelNowDifficulty
-	mov ebx,2
-	mul ebx
+	SUB EAX,2
 	mov pinnum,eax
 
 	;设置转速
-	mov eax,modelNowDifficulty
-	mov ebx,2
-	mul ebx
-	mov ebx,35
-	sub ebx,eax
-	;invoke crt_printf,addr szMiddle2Fmt,ebx
-	mov modelOmega,ebx
+	.IF modelNowDifficulty <= 8
+		mov eax,modelNowDifficulty
+		mov ebx,5
+		mul ebx
+		mov ebx,50
+		sub ebx,eax
+		;invoke crt_printf,addr szMiddle2Fmt,ebx
+		mov modelOmega,ebx
+	.ELSE
+		MOV eax,10
+		mov modelOmega,eax
+	.endif
+
+	;刷新分数
+	invoke FlushScore,modelScore
+
 
 	;载入页面
 	pushad
-	invoke initGameWindow,modelNowDifficulty,modelOmega
+	.IF modelOmega <= 10
+		invoke initGameWindow,modelInsertedPinNumber,10
+	.ELSE
+		invoke initGameWindow,modelInsertedPinNumber,modelOmega
+	.ENDIF
 	popad
 
 	

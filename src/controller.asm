@@ -6,6 +6,9 @@ includelib acllib.lib
 include inc\acllib.inc
 include inc\sharedVar.inc
 include inc\iconPosition.inc
+include inc\view.inc
+include inc\msvcrt.inc
+include inc\model.inc
 
 printf proto C :dword,:vararg
 
@@ -44,8 +47,9 @@ now_window sbyte "current Window: %d",10,0
 				;开始菜单的开始键
 				invoke is_inside_the_rect,x,y,menu_start_game_left,menu_start_game_right,menu_start_game_up,menu_start_game_bottom
 					.if eax == 1
-
+						
 						invoke printf,offset coord,x,y ;点击了开始键后的事件
+						invoke KeyboardEvent,0
 					.endif
 
 
@@ -54,32 +58,33 @@ now_window sbyte "current Window: %d",10,0
 					.if eax == 1
 
 						invoke printf,offset coord,x,y ;点击了后的事件
-
+						invoke KeyboardEvent,1
 					.endif
 
 			.elseif currWindow == 1 ;游戏主界面
 				invoke is_inside_the_rect,x,y,gaming_house_left,gaming_house_right,gaming_house_up,gaming_house_bottom
 					.if eax == 1
-
+						
 						invoke printf,offset coord,x,y ;点击了房子
-
+						invoke KeyboardEvent,1
 					.endif
 					;action
 					;	其他情况都发射针
+						invoke KeyboardEvent,0
 
 			.elseif currWindow == 2 ;最终得分
 				invoke is_inside_the_rect,x,y,final_score_house_left,final_score_house_right,final_score_house_up,final_score_house_bottom
 					.if eax == 1
-
+						
 						invoke printf,offset coord,x,y ;点击了房子
-
+						invoke KeyboardEvent,1
 					.endif
 
 				invoke is_inside_the_rect,x,y,final_score_restart_left,final_score_restart_right,final_score_restart_up,final_score_restart_bottom
 					.if eax == 1
 
 						invoke printf,offset coord,x,y ;点击了重新开始
-
+						invoke KeyboardEvent,0
 					.endif
 
 			.elseif	currWindow == 3 ;好耶，你通关了！
@@ -89,15 +94,15 @@ now_window sbyte "current Window: %d",10,0
 					.if eax == 1
 
 						invoke printf,offset coord,x,y ;点击了后的事件
-
+						invoke KeyboardEvent,1
 					.endif
 
 				;重新开始游戏
 				invoke is_inside_the_rect,x,y,pass_game_continue_left,pass_game_continue_right,pass_game_continue_up,pass_game_continue_bottom
 					.if eax == 1
-
+						
 						invoke printf,offset coord,x,y ;点击了后的事件
-
+						invoke KeyboardEvent,0
 					.endif
 			
 			.endif

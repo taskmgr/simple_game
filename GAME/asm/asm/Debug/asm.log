@@ -1,4 +1,6 @@
-﻿  Assembling ..\..\..\src\main.asm...
+﻿  Assembling ..\..\..\src\model.asm...
+C:\masm32\include\winextra.inc(11052): warning A6006: structure contains no members
+..\..\..\src\model.asm(292): warning A6004: procedure argument or local not referenced : middle2
 main.obj : warning LNK4258: 指令“/ENTRY:main@0”与开关“/ENTRY:main”不兼容；已忽略
   acllib.lib(acllib.obj) : 找到 MSIL .netmodule 或使用 /GL 编译的模块；正在使用 /LTCG 重新启动链接；将 /LTCG 添加到链接命令行以改进链接器性能
 LINK : warning LNK4075: 忽略“/INCREMENTAL”(由于“/LTCG”规范)
@@ -7,7 +9,7 @@ main.obj : warning LNK4258: 指令“/ENTRY:main@0”与开关“/ENTRY:main”�
 C:\Users\rainielove\source\repos\acllib\acllib\acllib.c(145): warning C4715: “init_first”: 不是所有的控件路径都返回值
   已完成代码的生成
 main.obj : warning LNK4258: 指令“/ENTRY:main@0”与开关“/ENTRY:main”不兼容；已忽略
-acllib.lib(acllib.obj) : warning LNK4099: 未找到 PDB“”(使用“acllib.lib(acllib.obj)”或在“”中寻找)；正在链接对象，如同没有调试信息一样
-myLib.lib(myLib.obj) : warning LNK4099: 未找到 PDB“myLib.pdb”(使用“myLib.lib(myLib.obj)”或在“D:\User\Documents\Code\simple_game\GAME\asm\Debug\myLib.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-myLib.lib(pch.obj) : warning LNK4099: 未找到 PDB“myLib.pdb”(使用“myLib.lib(pch.obj)”或在“D:\User\Documents\Code\simple_game\GAME\asm\Debug\myLib.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-  asm.vcxproj -> D:\User\Documents\Code\simple_game\GAME\asm\Debug\asm.exe
+acllib.lib(acllib.obj) : warning LNK4099: 未找到 PDB“acllib.pdb”(使用“acllib.lib(acllib.obj)”或在“C:\Users\81532\Documents\GitHub\simple_game\GAME\asm\Debug\acllib.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+myLib.lib(myLib.obj) : warning LNK4099: 未找到 PDB“myLib.pdb”(使用“myLib.lib(myLib.obj)”或在“C:\Users\81532\Documents\GitHub\simple_game\GAME\asm\Debug\myLib.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+myLib.lib(pch.obj) : warning LNK4099: 未找到 PDB“myLib.pdb”(使用“myLib.lib(pch.obj)”或在“C:\Users\81532\Documents\GitHub\simple_game\GAME\asm\Debug\myLib.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+  asm.vcxproj -> C:\Users\81532\Documents\GitHub\simple_game\GAME\asm\Debug\asm.exe

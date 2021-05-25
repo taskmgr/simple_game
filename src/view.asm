@@ -373,6 +373,9 @@ cal:
 	mov eax, pinnum
 	mov totalPinNum, eax
 
+	;刷新初始分数
+	;invoke FlushScore, 0
+
 	invoke loadImage, offset srcBg, offset imgBg
 	invoke loadImage, offset srcHome, offset imgHome
 	
