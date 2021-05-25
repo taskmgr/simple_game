@@ -5,23 +5,30 @@ option casemap:none
 includelib msvcrt.lib
 includelib acllib.lib
 
-
 include inc\acllib.inc
+include inc\windows.inc
 include inc\sharedVar.inc
-
-printf proto c:dword,:vararg
+include inc\view.inc
 
 .data
-hellomsg sbyte "gogogo!%d,%d"
-
+winTitle byte "见缝插针", 0
 
 .code
 main proc;梦开始的地方
-;	invoke printf,offset hellomsg
-	mov psin[0],0FFFFh
-	mov psin[4],03h;提示：数组下标表示字节偏移量而非元素偏移量
-	invoke printf,offset hellomsg,psin[4],psin[0]
-
+	invoke init_first  ;初始化绘图环境
+	invoke initWindow, offset winTitle, 425, 50, 550, 700 
+	invoke loadMenu, 0  ;显示主菜单
+	
+	;invoke loadMenu, 3
+	;mov pindeg[0], 0
+	;mov pindeg[4], 180
+	;mov pindeg[8], 90
+	;mov pinnum, 12
+	;invoke FlushScore, 20
+	;invoke initGameWindow, 3, 10
+	;mov pindeg[12], 45
+	;mov pinnum, 11
+	invoke init_second
 	ret
 main endp
 
