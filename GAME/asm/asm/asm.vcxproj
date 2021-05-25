@@ -35,6 +35,12 @@
     <None Include="..\..\..\src\inc\sharedVar.inc" />
     <None Include="..\..\..\src\inc\view.inc" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="asm.rc" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -55,6 +61,7 @@
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
+    <VCToolsVersion>14.26.28801</VCToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -135,10 +142,10 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalOptions>/SAFESEH:NO %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalLibraryDirectories>D:\masm32\lib;D:\User\Documents\Code\simple_game\lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\masm32\lib;C:\Users\78676\Desktop\code\assembly_language\GroupWork\simple_game\lib</AdditionalLibraryDirectories>
     </Link>
     <MASM>
-      <IncludePaths>D:\masm32\include;D:\User\Documents\Code\simple_game\src\inc;%(IncludePaths)</IncludePaths>
+      <IncludePaths>D:\masm32\include;C:\Users\78676\Desktop\code\assembly_language\GroupWork\simple_game\src\inc;%(IncludePaths)</IncludePaths>
     </MASM>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

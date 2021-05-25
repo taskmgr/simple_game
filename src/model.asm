@@ -3,7 +3,7 @@
 option casemap:none
 
 includelib msvcrt.lib
-includelib acllib.lib
+INCLUDELIB acllib.lib
 include msvcrt.inc
 
 include inc\sharedVar.inc
@@ -80,6 +80,7 @@ Window1Type0 proc C
 
 	;test
 	;invoke crt_printf,addr szMiddle4Fmt,cdeg
+	invoke playSound,modelMusicShootP,0
 
 	mov esi,0
 	;循环
@@ -102,6 +103,8 @@ Window1Type0 proc C
 		;pushad
 		;invoke crt_printf,addr szMiddle3Fmt,esi
 		;popad
+		invoke stopSound,modelMusicBackgroundP
+		invoke playSound,modelMusicLoseP,0
 		invoke cancelTimer,0
 		invoke loadMenu,2
 		ret
@@ -126,6 +129,8 @@ Window1Type0 proc C
 
 	;判断游戏是否结束
 	.if pinnum == 0
+		invoke stopSound,modelMusicBackgroundP
+		invoke playSound,modelMusicWinP,0
 		invoke cancelTimer,0
 		invoke loadMenu,3
 		ret
@@ -136,6 +141,7 @@ Window1Type0 endp
 
 Window1Type1 proc C
 	mov modelScore,0
+	invoke stopSound,modelMusicBackgroundP
 	invoke cancelTimer,0
 	invoke loadMenu,0
 	ret
@@ -189,6 +195,13 @@ InitWindow proc C
 	push eax
 	call crt_srand
 	add esp,4
+
+	;初始化音乐
+	invoke loadSound,addr modelMusicBackground,addr modelMusicBackgroundP
+	invoke loadSound,addr modelMusicShoot,addr modelMusicShootP
+	invoke loadSound,addr modelMusicLose,addr modelMusicLoseP
+	invoke loadSound,addr modelMusicWin,addr modelMusicWinP
+	invoke playSound,modelMusicBackgroundP,1
 
 	;初始化cdeg
 	invoke crt_rand

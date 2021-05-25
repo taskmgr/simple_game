@@ -4,6 +4,14 @@ modelInsertedPinNumber dd ?
 modelScore dd ?
 modelLastScore dd ?
 .data
+modelMusicBackground byte "..\..\..\resource\music\background.mp3", 0
+modelMusicShoot byte "..\..\..\resource\music\shoot.mp3", 0
+modelMusicLose byte "..\..\..\resource\music\lose.mp3", 0
+modelMusicWin byte "..\..\..\resource\music\win.mp3", 0
+modelMusicBackgroundP dd 0
+modelMusicShootP dd 1
+modelMusicLoseP dd 2
+modelMusicWinP dd 3
 
 ;É¾µô£¡£¡£¡£¡£¡£¡£¡£¡£¡
 ;szMiddle1Fmt byte "			%d",0ah,0
