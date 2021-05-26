@@ -109,6 +109,37 @@ Window1Type0 proc C
 		invoke loadMenu,2
 		ret
 	.endif
+	;考虑特殊情况，例如355和1°，需要对更小的值加360判断
+	mov eax,450
+	mov edx,0
+	sub eax,cdeg
+	mov ebx,360
+	div ebx
+	MOV middle2,edx
+	mov eax,pindeg[4*esi]
+	.if eax > middle2
+		add middle2,360
+	.else
+		add eax,360
+	.endif
+	sub eax,middle2
+	mov middle1,eax
+	push esi
+	invoke crt_abs,middle1
+	pop esi
+	;判断差距是否大于10
+	.if eax < 10
+		mov middle1,esi
+		;pushad
+		;invoke crt_printf,addr szMiddle3Fmt,esi
+		;popad
+		invoke stopSound,modelMusicBackgroundP
+		invoke playSound,modelMusicLoseP,0
+		invoke cancelTimer,0
+		invoke loadMenu,2
+		ret
+	.endif
+
 	;循环判断
 	inc esi
 	cmp esi,modelInsertedPinNumber
