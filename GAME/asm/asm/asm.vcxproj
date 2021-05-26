@@ -142,10 +142,10 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalOptions>/SAFESEH:NO %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalLibraryDirectories>D:\masm32\lib;C:\Users\78676\Desktop\code\assembly_language\GroupWork\simple_game\lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\masm32\lib;D:\code\simple_game\lib</AdditionalLibraryDirectories>
     </Link>
     <MASM>
-      <IncludePaths>D:\masm32\include;C:\Users\78676\Desktop\code\assembly_language\GroupWork\simple_game\src\inc;%(IncludePaths)</IncludePaths>
+      <IncludePaths>C:\masm32\include;D:\code\simple_game\src\inc;%(IncludePaths)</IncludePaths>
     </MASM>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
