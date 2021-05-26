@@ -51,4 +51,14 @@
       <Filter>头文件</Filter>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="asm.rc">
+      <Filter>源文件\资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
 </Project>
